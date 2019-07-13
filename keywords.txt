@@ -23,7 +23,7 @@ setLED	KEYWORD2
 #######################################
 # Instances (KEYWORD2)
 #######################################
-DFRobot_Sensor_ID	KEYWORD2
+
 
 #######################################
 # Constants (LITERAL1)
@@ -44,3 +44,7 @@ COLOR_RED	LITERAL1   
 COLOR_MAGENTA	LITERAL1
 COLOR_YELLOW	LITERAL1     
 COLOR_WHITE	LITERAL1
+eNormalPower	LITERAL1
+eLowPower	LITERAL1
+eNormalSpeed	LITERAL1
+eHighSpeed	LITERAL1
