@@ -1,5 +1,5 @@
 ﻿# DFRobot_Sensor
-这里写模块介绍介绍，做到读完这段，就能对模块有初步了解<br>
+这里写模块介绍介绍，做到读完这段，就能对模块有初步了解，让客户懂的用这个模块能干什么<br>
 
 这里需要显示svg图，可以一张图片，可以多张图片
 ![正反面svg效果图](https://github.com/ouki-wang/DFRobot_Sensor/raw/master/resources/images/SEN0245svg1.png)
@@ -20,7 +20,7 @@
 
 ## Summary
 
-Provide an Arduino library to control the bmx160 to get magnetometer accelerometer, gyroscope and step counter, via I2C communication.
+这里填写当前Arduino软件库完成了哪些功能
 
 ## Installation
 
