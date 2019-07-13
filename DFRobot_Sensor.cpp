@@ -67,7 +67,12 @@ void DFRobot_Sensor_IIC::writeReg(uint8_t reg, void* pBuf, size_t size)
 {
   uint8_t * _pBuf = (uint8_t *)pBuf;
   _pWire->beginTransmission(_deviceAddr);
-  _pWire->write(&reg, 1);
+  #if ARDUINO >= 100
+    _pWire->write(&reg, 1);
+  #else
+    _pWire->send(&reg, 1);
+  #endif
+  
   for(uint16_t i = 0; i < size; i++){
     _pWire->write(_pBuf[i]);
   }
@@ -78,13 +83,22 @@ uint8_t DFRobot_Sensor_IIC::readReg(uint8_t reg, void* pBuf, size_t size)
 {
   uint8_t * _pBuf = (uint8_t *)pBuf;
   _pWire->beginTransmission(_deviceAddr);
+  #if ARDUINO >= 100
   _pWire->write(&reg, 1);
+  #else
+  _pWire->send(&reg, 1);
+  #endif
   if( _pWire->endTransmission() != 0){
       return 0;
   }
   _pWire->requestFrom(_deviceAddr, (uint8_t) size);
-  for(uint16_t i = 0; i < size; i++)
+  for(uint16_t i = 0; i < size; i++){
+    #if ARDUINO >= 100
     _pBuf[i] = _pWire->read();
+    #else
+    _pBuf[i] = _pWire->recv();
+    #endif
+  }
   _pWire->endTransmission();
   return size;
 }

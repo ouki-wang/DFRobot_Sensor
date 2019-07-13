@@ -16,7 +16,11 @@
 #ifndef __DFROBOT_SENSOR_H
 #define __DFROBOT_SENSOR_H
 
-#include <Arduino.h>
+#if ARDUINO >= 100
+#include "Arduino.h"
+#else
+#include "WProgram.h"
+#endif
 #include <Wire.h>
 #include <SPI.h>
 
@@ -43,33 +47,60 @@
 #define  COLOR_YELLOW    0xFFE0      // 黄色        
 #define  COLOR_WHITE     0xFFFF      // 白色  
 
+/*
+ 这里从数据手册上抄写关于这个寄存器的描述
+*/
 typedef struct {
   uint8_t   b: 5;
   uint8_t   g: 6;
   uint8_t   r: 5;
 } __attribute__ ((packed)) sColor_t;
-
+/*
+ 这里从数据手册上抄写关于这个寄存器的描述
+   * ------------------------------------------------------------------------------------------
+   * |    b7    |    b6    |    b5    |    b4    |    b3    |    b2    |    b1     |    b0    |
+   * ------------------------------------------------------------------------------------------
+   * |                 声音强度                  |                  光线强度                  |
+   * ------------------------------------------------------------------------------------------
+ */
 typedef struct {
   uint8_t   light: 4;
   uint8_t   sound: 4;
 } __attribute__ ((packed)) sCombinedData_t;
 
-
+/*
+ 这里从数据手册上抄写关于这个寄存器的描述
+   * ------------------------------------------------------------------------------------------
+   * |    b7    |    b6    |    b5    |    b4    |    b3    |    b2    |    b1     |    b0    |
+   * ------------------------------------------------------------------------------------------
+   * |   reversed                                                      | highspeed | lowpower |
+   * ------------------------------------------------------------------------------------------
+*/
 typedef struct {
   uint8_t   lowpower: 1;
   uint8_t   highspeed: 1;
   uint8_t   reserved: 7;
 } __attribute__ ((packed)) sMode_t;
 
+
+/*
+从数据手册上抄写
+解释一下什么叫eNormalPower模式，什么叫eLowPower模式，
+*/
+
 typedef enum{
   eNormalPower = 0,
   eLowPower = 1,
 }eLowPowerMode_t;
 
+/*
+从数据手册上抄写
+解释一下什么叫eNormalSpeed模式，什么叫eHighSpeed模式，
+*/
 typedef enum{
   eNormalSpeed = 0<<1,
   eHighSpeed = 1<<1,
-}eHighSpeedMode_t;
+}eSpeedMode_t;
 
 class DFRobot_Sensor
 {
@@ -100,9 +131,9 @@ public:
   
     /**
    * @brief 切换模式
+   * @param mode 可以是eLowPowerMode_t和eHighSpeedMode_t类型，也可以是二者组合
    * @return 返回0操作成功, 返回其他值操作失败
    */
-  //uint8_t switchMode(sMode_t mode);
   uint8_t switchMode(uint8_t mode);
   /**
    * @brief 设置LED灯的颜色
