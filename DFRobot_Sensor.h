@@ -20,11 +20,11 @@
 #include <Wire.h>
 #include <SPI.h>
 
-#define DFRobot_Sensor_ID 0x66
+#define DFRobot_Sensor_ID 0x66 //芯片IIC地址，无变化地址功能
 
-#define SENSOR_ADDR_LED    0
-#define SENSOR_ADDR_DATA   1
-#define SENSOR_ADDR_CONFIG 2
+#define SENSOR_ADDR_LED    0 //LED控制地址  这里的描述从芯片手册上抄写
+#define SENSOR_ADDR_DATA   1 //组合数据地址  这里的描述从芯片手册上抄写
+#define SENSOR_ADDR_CONFIG 2 //配置寄存器地址 这里的描述从芯片手册上抄写
 
 #define  COLOR_BLACK     0x0000      // 黑色    
 #define  COLOR_NAVY      0x000F      // 深蓝色  

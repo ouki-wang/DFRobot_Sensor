@@ -1,7 +1,7 @@
 /*!
- * @file readLight.ino
- * @brief 读取环境光线强度
- * @n 实验现象：每秒读取一次环境光线强度，并打印到串口
+ * @file readSound.ino
+ * @brief 读取环境声音强度，单位DB
+ * @n 实验现象：每秒读取一次环境声音强度，并打印到串口
  *
  * @copyright	[DFRobot](http://www.dfrobot.com), 2016
  * @copyright	GNU Lesser General Public License

@@ -1,6 +1,6 @@
 /*!
  * @file readLight.ino
- * @brief 读取环境光线强度
+ * @brief 读取环境光线强度，单位流明
  * @n 实验现象：每秒读取一次环境光线强度，并打印到串口
  *
  * @copyright	[DFRobot](http://www.dfrobot.com), 2016
