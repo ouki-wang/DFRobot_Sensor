@@ -2,7 +2,7 @@
 这里写模块介绍介绍，做到读完这段，就能对模块有初步了解<br>
 
 这里需要显示svg图，可以一张图片，可以多张图片
-![正反面svg效果图](https://raw.githubusercontent.com/ouki-wang/DFRobot_Sensor/master/resources/images/SEN0245svg1)
+![正反面svg效果图](https://github.com/ouki-wang/DFRobot_Sensor/raw/master/resources/images/SEN0245svg1.png)
 
 ## DFRobot_Sensor Library for Arduino
 ---------------------------------------------------------
