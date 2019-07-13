@@ -1,0 +1,46 @@
+#######################################
+# Syntax Coloring Map For DFRobot_Sensor
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+DFRobot_Sensor	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+getSoundStrength	KEYWORD2
+getLightStrength	KEYWORD2
+switchMode	KEYWORD2
+write_bytes	KEYWORD2
+setLED	KEYWORD2
+
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+DFRobot_Sensor_ID	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+COLOR_BLACK	LITERAL1
+COLOR_NAVY	LITERAL1
+COLOR_DGREEN	LITERAL1
+COLOR_DCYAN	LITERAL1
+COLOR_PURPLE	LITERAL1
+COLOR_MAROON	LITERAL1
+COLOR_OLIVE	LITERAL1   
+COLOR_LGRAY	LITERAL1
+COLOR_DGRAY	LITERAL1
+COLOR_BLUE	LITERAL1
+COLOR_GREEN	LITERAL1
+COLOR_CYAN	LITERAL1
+COLOR_RED	LITERAL1   
+COLOR_MAGENTA	LITERAL1
+COLOR_YELLOW	LITERAL1     
+COLOR_WHITE	LITERAL1
