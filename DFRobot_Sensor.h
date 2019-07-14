@@ -24,11 +24,21 @@
 #include <Wire.h>
 #include <SPI.h>
 
-#define DFRobot_Sensor_ID 0x66 //芯片IIC地址，无变化地址功能
+//#define ENABLE_DBG
+
+#ifdef ENABLE_DBG
+#define DBG(...) {Serial.print("["); Serial.print(__FUNCTION__); Serial.print("(): "); Serial.print(__LINE__); Serial.print(" ] "); Serial.println(__VA_ARGS__);}
+#else
+#define DBG(...)
+#endif
+
+#define DFRobot_Sensor_IIC_ADDR 0x66 //芯片IIC地址，无变化地址功能
+#define DFRobot_Sensor_ID 0xDF //芯片IIC地址，无变化地址功能
 
 #define SENSOR_ADDR_LED    0 //LED控制地址  这里的描述从芯片手册上抄写
 #define SENSOR_ADDR_DATA   1 //组合数据地址  这里的描述从芯片手册上抄写
 #define SENSOR_ADDR_CONFIG 2 //配置寄存器地址 这里的描述从芯片手册上抄写
+#define SENSOR_ADDR_ID     3 //芯片ID寄存器地址 这里的描述从芯片手册上抄写
 
 #define  COLOR_BLACK     0x0000      // 黑色    
 #define  COLOR_NAVY      0x000F      // 深蓝色  
@@ -46,6 +56,11 @@
 #define  COLOR_MAGENTA   0xF81F      // 品红    
 #define  COLOR_YELLOW    0xFFE0      // 黄色        
 #define  COLOR_WHITE     0xFFFF      // 白色  
+
+
+#define ERR_OK             0      //无错误
+#define ERR_DATA_BUS      -1      //数据总线错误
+#define ERR_IC_VERSION    -2      //芯片版本不匹配
 
 /*
  这里从数据手册上抄写关于这个寄存器的描述
@@ -70,37 +85,48 @@ typedef struct {
 
 /*
  这里从数据手册上抄写关于这个寄存器的描述
-   * ------------------------------------------------------------------------------------------
-   * |    b7    |    b6    |    b5    |    b4    |    b3    |    b2    |    b1     |    b0    |
-   * ------------------------------------------------------------------------------------------
-   * |   reversed                                                      | highspeed | lowpower |
-   * ------------------------------------------------------------------------------------------
+   * -----------------------------------------------------------------------------------------
+   * |    b7    |    b6    |    b5    |    b4    |    b3    |    b2   |    b1     |    b0    |
+   * -----------------------------------------------------------------------------------------
+   * |   ready  |         reversed               |      precision     | highspeed | lowpower |
+   * -----------------------------------------------------------------------------------------
+   *
+   *上电后，ready位默认为1，不可更改
 */
 typedef struct {
-  uint8_t   lowpower: 1;
-  uint8_t   highspeed: 1;
-  uint8_t   reserved: 7;
+  uint8_t   lowpower: 1; /*!< 上电为0，1：低功耗模式 0：正常功耗模式 */
+  uint8_t   highspeed: 1; /*!< 上电为0，1：告诉模式 0：正常速度模式 */
+  uint8_t   precision: 2; /*!< 上电为0，0：低精度模式，1：正常精度模式，2：高精度模式，3：超高精度模式 */
+  uint8_t   reserved: 4; /*!< 上电为0，1：低功耗模式 0：正常功耗模式 */
+  uint8_t   ready:1; /*!< 上电为0，1：低功耗模式 0：正常功耗模式 */
 } __attribute__ ((packed)) sMode_t;
-
 
 /*
 从数据手册上抄写
-解释一下什么叫eNormalPower模式，什么叫eLowPower模式，
 */
 
 typedef enum{
-  eNormalPower = 0,
-  eLowPower = 1,
+  eNormalPower = 0, /**< 正常功耗模式，功耗范围20mW-60mW，可以搭配任务采集速度eSpeedMode_t和采集精度ePrecisionMode_t */
+  eLowPower = 1, /**< 低功耗模式，功耗范围2mW-4mW, 注意在低功耗模式下，采集速度eSpeedMode_t只能搭配eNormalSpeed，采集精度ePrecisionMode_t只能搭配eLowPrecision和eNomalPrecision*/
 }eLowPowerMode_t;
 
 /*
 从数据手册上抄写
-解释一下什么叫eNormalSpeed模式，什么叫eHighSpeed模式，
 */
 typedef enum{
-  eNormalSpeed = 0<<1,
-  eHighSpeed = 1<<1,
+  eNormalSpeed = 0<<1, /**< 正常采集速度，可以和任意精度搭配使用 */
+  eHighSpeed = 1<<1,   /**< 高速采集模式，采集周期10ms，可以进入低功耗，可以配置为eLowPrecision和eNomalPrecision两种精度模式 */
 }eSpeedMode_t;
+
+/*
+从数据手册上抄写
+*/
+typedef enum{
+  eLowPrecision   = 0<<2, /**< 低精度，精度大概在xxx，在低精度模式下，可以进入低功耗 */
+  eNomalPrecision = 1<<2, /**< 正常精度，精度大概在xxx，在正常精度模式下，可以进入低功耗 */
+  eHighPrecision  = 2<<2, /**< 高精度，精度大概在xxx，在高精度模式下，采集速率会降低，采集周期100ms，不能进入低功耗 */
+  eUltraPrecision = 3<<2, /**< 超高精度，精度大概在xxx，在超高精度模式下，采集速率会极低，采集周期1000ms，不能进入低功耗 */
+}ePrecisionMode_t;
 
 class DFRobot_Sensor
 {
@@ -121,13 +147,13 @@ public:
    * @brief 获取声音强度值
    * @return 返回声音强度，单位是DB
    */
-  uint16_t getSoundStrength(void);
+  uint16_t soundStrengthDB(void);
 
   /**
    * @brief 获取光线强度值
-   * @return 返回光线强度，单位是流明
+   * @return 返回光线强度，单位是勒克斯(Lux)
    */
-  uint16_t getLightStrength(void);
+  uint32_t lightStrengthLux(void);
   
     /**
    * @brief 切换模式

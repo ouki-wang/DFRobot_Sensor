@@ -18,22 +18,35 @@ DFRobot_Sensor::DFRobot_Sensor(uint8_t mode):
 
 int DFRobot_Sensor::begin(void)
 {
+  uint8_t id=0;
+  if(readReg(SENSOR_ADDR_ID,&id,1) != 0){
+    DBG("bus data access error");
+    return ERR_DATA_BUS;
+  }
+  DBG("real sensor id=");DBG(id);
+  if(id != DFRobot_Sensor_ID){
+    return ERR_IC_VERSION;
+  }
   writeReg(SENSOR_ADDR_CONFIG,&_mode,1);
-  return 0;
+  return ERR_OK;
 }
 
-uint16_t DFRobot_Sensor::getSoundStrength(void)
+uint16_t DFRobot_Sensor::soundStrengthDB(void)
 {
   sCombinedData_t data;
   readReg(SENSOR_ADDR_DATA, &data, sizeof(data));
-  return data.sound << 6;
+  DBG("sound reg raw data is");
+  DBG(data.sound);
+  return data.sound << 3;
 }
 
-uint16_t DFRobot_Sensor::getLightStrength(void)
+uint32_t DFRobot_Sensor::lightStrengthLux(void)
 {
   sCombinedData_t data;
   readReg(SENSOR_ADDR_DATA, &data, sizeof(data));
-  return data.light << 6;
+  DBG("light reg raw data is");
+  DBG(data.light);
+  return data.light * 10000;
 }
 
 void DFRobot_Sensor::setLED(uint8_t r, uint8_t g, uint8_t b)
@@ -49,30 +62,39 @@ void DFRobot_Sensor::setLED(uint16_t color)
 
 uint8_t DFRobot_Sensor::switchMode(uint8_t mode)
 {
+  uint8_t tmp;
+  #ifdef ENABLE_DBG
+  readReg(SENSOR_ADDR_CONFIG, &tmp, sizeof(tmp));
+  DBG("before switch Mode, ModeReg = ");
+  DBG(mode);
+  #endif
   writeReg(SENSOR_ADDR_CONFIG, &mode, sizeof(mode));
+  #ifdef ENABLE_DBG
+  readReg(SENSOR_ADDR_CONFIG, &tmp, sizeof(tmp));
+  DBG("after switch Mode, ModeReg = ");
+  DBG(tmp);
+  #endif
 }
 
-int DFRobot_Sensor_IIC::begin(void){
+int DFRobot_Sensor_IIC::begin(void)
+{
   Wire.begin();
   return DFRobot_Sensor::begin();
 }
 
 DFRobot_Sensor_IIC::DFRobot_Sensor_IIC(TwoWire *pWire, uint8_t mode)
-  :DFRobot_Sensor(mode){
-    _deviceAddr = DFRobot_Sensor_ID;
-    _pWire = pWire;
+  :DFRobot_Sensor(mode)
+{
+  _deviceAddr = DFRobot_Sensor_IIC_ADDR;
+  _pWire = pWire;
 }
 
 void DFRobot_Sensor_IIC::writeReg(uint8_t reg, void* pBuf, size_t size)
 {
   uint8_t * _pBuf = (uint8_t *)pBuf;
   _pWire->beginTransmission(_deviceAddr);
-  #if ARDUINO >= 100
-    _pWire->write(&reg, 1);
-  #else
-    _pWire->send(&reg, 1);
-  #endif
-  
+  _pWire->write(&reg, 1);
+
   for(uint16_t i = 0; i < size; i++){
     _pWire->write(_pBuf[i]);
   }
@@ -83,21 +105,13 @@ uint8_t DFRobot_Sensor_IIC::readReg(uint8_t reg, void* pBuf, size_t size)
 {
   uint8_t * _pBuf = (uint8_t *)pBuf;
   _pWire->beginTransmission(_deviceAddr);
-  #if ARDUINO >= 100
   _pWire->write(&reg, 1);
-  #else
-  _pWire->send(&reg, 1);
-  #endif
   if( _pWire->endTransmission() != 0){
       return 0;
   }
   _pWire->requestFrom(_deviceAddr, (uint8_t) size);
   for(uint16_t i = 0; i < size; i++){
-    #if ARDUINO >= 100
     _pBuf[i] = _pWire->read();
-    #else
-    _pBuf[i] = _pWire->recv();
-    #endif
   }
   _pWire->endTransmission();
   return size;
@@ -114,7 +128,7 @@ int DFRobot_Sensor_SPI::begin(void)
 {
   pinMode(_csPin, OUTPUT);
   _pSpi->begin();
-  DFRobot_Sensor::begin();
+  return DFRobot_Sensor::begin();
 }
 
 void DFRobot_Sensor_SPI::writeReg(uint8_t reg, void* pBuf, size_t size)
