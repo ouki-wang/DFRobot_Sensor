@@ -25,29 +25,6 @@ To use this library, first download the library file, paste it into the \Arduino
 ## Methods
 
 ```C++
-#define DFRobot_Sensor_ID 0x66
-
-#define SENSOR_ADDR_LED    0
-#define SENSOR_ADDR_DATA   1
-#define SENSOR_ADDR_CONFIG 2
-
-#define  COLOR_BLACK     0x0000      // 黑色    
-#define  COLOR_NAVY      0x000F      // 深蓝色  
-#define  COLOR_DGREEN    0x03E0      // 深绿色  
-#define  COLOR_DCYAN     0x03EF      // 深青色  
-#define  COLOR_PURPLE    0x780F      // 紫色  
-#define  COLOR_MAROON    0x7800      // 深红色      
-#define  COLOR_OLIVE     0x7BE0      // 橄榄绿      
-#define  COLOR_LGRAY     0xC618      // 灰白色
-#define  COLOR_DGRAY     0x7BEF      // 深灰色      
-#define  COLOR_BLUE      0x001F      // 蓝色    
-#define  COLOR_GREEN     0x07E0      // 绿色          
-#define  COLOR_CYAN      0x07FF      // 青色  
-#define  COLOR_RED       0xF800      // 红色       
-#define  COLOR_MAGENTA   0xF81F      // 品红    
-#define  COLOR_YELLOW    0xFFE0      // 黄色        
-#define  COLOR_WHITE     0xFFFF      // 白色  
-
 typedef struct {
   uint8_t   b: 5;
   uint8_t   g: 6;
