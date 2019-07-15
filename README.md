@@ -4,10 +4,6 @@
 这里需要显示svg图，可以一张图片，可以多张图片
 ![正反面svg效果图](https://github.com/ouki-wang/DFRobot_Sensor/raw/master/resources/images/SEN0245svg1.png)
 
-## DFRobot_Sensor Library for Arduino
----------------------------------------------------------
-
-三两句话描述这个库的大概功能
 
 ## Table of Contents
 
