@@ -29,34 +29,6 @@ To use this library, first download the library file, paste it into the \Arduino
 ## Methods
 
 ```C++
-typedef struct {
-  uint8_t   b: 5;
-  uint8_t   g: 6;
-  uint8_t   r: 5;
-} __attribute__ ((packed)) sColor_t;
-
-typedef struct {
-  uint8_t   light: 4;
-  uint8_t   sound: 4;
-} __attribute__ ((packed)) sCombinedData_t;
-
-
-typedef struct {
-  uint8_t   lowpower: 1;
-  uint8_t   highspeed: 1;
-  uint8_t   reserved: 7;
-} __attribute__ ((packed)) sMode_t;
-
-typedef enum{
-  eNormalPower = 0,
-  eLowPower = 1,
-}eLowPowerMode_t;
-
-typedef enum{
-  eNormalSpeed = 0<<1,
-  eHighSpeed = 1<<1,
-}eHighSpeedMode_t;
-
   /**
    * @brief 初始化函数
    * @return 返回0表示初始化成功，返回其他值表示初始化失败
