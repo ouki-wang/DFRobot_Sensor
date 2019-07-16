@@ -3,7 +3,7 @@
  * @brief 各种模式切换
  * @n 实验现象：演示各种模式切换，保证板子正常工作
  *
- * @copyright	[DFRobot](http://www.dfrobot.com), 2016
+ * @copyright	Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [Ouki](ouki.wang@dfrobot.com)
  * @version  V1.0

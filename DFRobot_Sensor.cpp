@@ -2,8 +2,8 @@
  * @file DFRobot_Sensor.cpp
  * @brief 定义DFRobot_Sensor 类的基础结构，基础方法的实现
  *
- * @copyright	[DFRobot](http://www.dfrobot.com), 2016
- * @copyright	GNU Lesser General Public License
+ * @copyright	Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
+ * @licence     The MIT License (MIT)
  * @author [Ouki](ouki.wang@dfrobot.com)
  * @version  V1.0
  * @date  2019-07-13

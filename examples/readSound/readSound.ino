@@ -5,7 +5,7 @@
  * @n 给传感器以不同的光照强度，可以得到不同的采集结果
  * @n 由于只有4 bits存放声音强度，最低分辨率8dB，所以测量范围是 0dB-120dB
  *
- * @copyright	[DFRobot](http://www.dfrobot.com), 2016
+ * @copyright	Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [Ouki](ouki.wang@dfrobot.com)
  * @version  V1.0

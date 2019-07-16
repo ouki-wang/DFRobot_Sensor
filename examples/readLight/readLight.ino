@@ -4,7 +4,7 @@
  * @n 实验现象：每秒读取一次环境光线强度，并打印到串口，给传感器以不同的光照强度，可以得到不同的采集结果
  * @n 由于只有4 bits存放光照强度，最低分辨率1000，所以能采集的范围是 0Lux-150000Lux
  *
- * @copyright	[DFRobot](http://www.dfrobot.com), 2016
+ * @copyright	Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [Ouki](ouki.wang@dfrobot.com)
  * @version  V1.0
