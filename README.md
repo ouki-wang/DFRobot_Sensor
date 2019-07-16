@@ -1,8 +1,10 @@
-﻿# DFRobot_Sensor
+# DFRobot_Sensor
 这里写模块介绍介绍，做到读完这段，就能对模块有初步了解，让客户懂的用这个模块能干什么<br>
 
 这里需要显示拍照图片，可以一张图片，可以多张图片（不要用SVG图）
+
 ![正反面svg效果图](https://github.com/ouki-wang/DFRobot_Sensor/raw/master/resources/images/SEN0245svg1.png)
+
 
 # 产品链接（链接到英文商城）
     SKU：产品名称
