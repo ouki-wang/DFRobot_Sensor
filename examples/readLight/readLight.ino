@@ -5,7 +5,7 @@
  * @n 由于只有4 bits存放光照强度，最低分辨率1000，所以能采集的范围是 0Lux-150000Lux
  *
  * @copyright	[DFRobot](http://www.dfrobot.com), 2016
- * @copyright	GNU Lesser General Public License
+ * @licence     The MIT License (MIT)
  * @author [Ouki](ouki.wang@dfrobot.com)
  * @version  V1.0
  * @date  2019-07-13

@@ -4,7 +4,7 @@
  * @n 实验现象：演示各种模式切换，保证板子正常工作
  *
  * @copyright	[DFRobot](http://www.dfrobot.com), 2016
- * @copyright	GNU Lesser General Public License
+ * @licence     The MIT License (MIT)
  * @author [Ouki](ouki.wang@dfrobot.com)
  * @version  V1.0
  * @date  2019-07-13

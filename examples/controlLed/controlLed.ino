@@ -3,8 +3,8 @@
  * @brief 控制LED颜色值
  * @n 实验现象：板载LED灯每秒钟切换一次颜色
  *
- * @copyright	[DFRobot](http://www.dfrobot.com), 2016
- * @copyright	GNU Lesser General Public License
+ * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
+ * @licence     The MIT License (MIT)
  * @author [Ouki](ouki.wang@dfrobot.com)
  * @version  V1.0
  * @date  2019-07-13
@@ -32,9 +32,9 @@ void loop(void)
   COLOR_RGB565_GREEN  COLOR_RGB565_CYAN  COLOR_RGB565_RED     COLOR_RGB565_MAGENTA COLOR_RGB565_YELLOW      
   COLOR_RGB565_WHITE
   */
-  sensor.setLED(sensor.COLOR_RGB565_PURPLE);
+  sensor.setLED(COLOR_RGB565_PURPLE);
   delay(1000);
-  sensor.setLED(sensor.COLOR_RGB565_YELLOW);
+  sensor.setLED(COLOR_RGB565_YELLOW);
   delay(1000);
   
   /*setLED函数用于点亮LED，可以通过配置RGB分量，显示特定颜色
