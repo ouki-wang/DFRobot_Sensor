@@ -13,6 +13,8 @@
  */
 #include <DFRobot_Sensor.h>
 DFRobot_Sensor_IIC sensor(&Wire, eLowPower);
+//DFRobot_Sensor_IIC sensor;//这样定义会使用默认参数，&Wire  eNomalPrecision+eNormalSpeed+eNormalPower
+
 void setup(void)
 {
   Serial.begin(115200);
@@ -26,9 +28,9 @@ void setup(void)
 void loop(void)
 {
   /*读取光线强度*/
-  uint16_t v = sensor.lightStrengthLux();
+  uint16_t lightStrength = sensor.lightStrengthLux();
   Serial.print("Light Strength=");
-  Serial.print(v);
+  Serial.print(lightStrength);
   Serial.println(" Lux");
   delay(1000);
 }

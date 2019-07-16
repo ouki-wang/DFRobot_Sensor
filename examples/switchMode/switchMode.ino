@@ -12,7 +12,8 @@
  */
 #include <DFRobot_Sensor.h>
 //默认以低功耗模式工作
-DFRobot_Sensor_SPI sensor(&SPI, 13, eLowPower);
+DFRobot_Sensor_SPI sensor(&SPI, /*cs=*/13, DFRobot_Sensor_SPI::eLowPower);
+
 void setup(void)
 {
   Serial.begin(115200);
@@ -27,32 +28,32 @@ void loop(void)
 {
   int ret;
   //为了完成xxx任务，先切换到正常功耗模式, 
-  if((ret = sensor.switchMode(eNormalPower)) != 0){
+  if((ret = sensor.switchMode(sensor.eNormalPower)) != 0){
     Serial.print("切换到eNormalPower失败 ret=");
     Serial.println(ret);
   }
   //为了完成xxx任务，切换到高速度模式
-  if((ret = sensor.switchMode(eHighSpeed)) != 0){
+  if((ret = sensor.switchMode(sensor.eHighSpeed)) != 0){
     Serial.print("切换到eNormalPower失败 ret=");
     Serial.println(ret);
   }
   //为了完成xxx任务，切换到正常速度模式
-  if((ret = sensor.switchMode(eNormalSpeed)) != 0){
+  if((ret = sensor.switchMode(sensor.eNormalSpeed)) != 0){
     Serial.print("切换到eNormalPower失败 ret=");
     Serial.println(ret);
   }
   //为了完成xxx任务，切换到低功耗模式
-  if((ret = sensor.switchMode(eLowPower)) != 0){
+  if((ret = sensor.switchMode(sensor.eLowPower)) != 0){
     Serial.print("切换到eNormalPower失败 ret=");
     Serial.println(ret);
   }
   //为了完成xxx任务，切换到eNormalPower+eHighSpeed模式
-  if((ret = sensor.switchMode(eNormalPower+eHighSpeed)) != 0){
+  if((ret = sensor.switchMode(sensor.eNormalPower+sensor.eHighSpeed)) != 0){
     Serial.print("切换到eNormalPower+eHighSpeed失败 ret=");
     Serial.println(ret);
   }
   //为了完成xxx任务，切换到eHighPrecision+eNormalSpeed模式
-  if((ret = sensor.switchMode(eHighPrecision+eNormalSpeed)) != 0){
+  if((ret = sensor.switchMode(sensor.eHighPrecision+sensor.eNormalSpeed)) != 0){
     Serial.print("切换到eHighPrecision+eNormalSpeed失败 ret=");
     Serial.println(ret);
   }

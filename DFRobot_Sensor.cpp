@@ -74,12 +74,9 @@ uint8_t DFRobot_Sensor::switchMode(uint8_t mode)
   DBG("after switch Mode, ModeReg = ");
   DBG(tmp);
   #endif
-}
-
-int DFRobot_Sensor_IIC::begin(void)
-{
-  Wire.begin();
-  return DFRobot_Sensor::begin();
+  /*
+    return 
+  */
 }
 
 DFRobot_Sensor_IIC::DFRobot_Sensor_IIC(TwoWire *pWire, uint8_t mode)
@@ -89,8 +86,17 @@ DFRobot_Sensor_IIC::DFRobot_Sensor_IIC(TwoWire *pWire, uint8_t mode)
   _pWire = pWire;
 }
 
+int DFRobot_Sensor_IIC::begin(void)
+{
+  Wire.begin();
+  return DFRobot_Sensor::begin();
+}
+
 void DFRobot_Sensor_IIC::writeReg(uint8_t reg, void* pBuf, size_t size)
 {
+  if(pBuf == NULL){
+	  DBG("pBuf ERROR!! : null pointer");
+  }
   uint8_t * _pBuf = (uint8_t *)pBuf;
   _pWire->beginTransmission(_deviceAddr);
   _pWire->write(&reg, 1);
@@ -103,6 +109,9 @@ void DFRobot_Sensor_IIC::writeReg(uint8_t reg, void* pBuf, size_t size)
 
 uint8_t DFRobot_Sensor_IIC::readReg(uint8_t reg, void* pBuf, size_t size)
 {
+  if(pBuf == NULL){
+    DBG("pBuf ERROR!! : null pointer");
+  }
   uint8_t * _pBuf = (uint8_t *)pBuf;
   _pWire->beginTransmission(_deviceAddr);
   _pWire->write(&reg, 1);
@@ -133,6 +142,9 @@ int DFRobot_Sensor_SPI::begin(void)
 
 void DFRobot_Sensor_SPI::writeReg(uint8_t reg, void* pBuf, size_t size)
 {
+  if(pBuf == NULL){
+	  DBG("pBuf ERROR!! : null pointer");
+  }
   uint8_t * _pBuf = (uint8_t *)pBuf;
   _pSpi->beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));
   digitalWrite(_csPin, 0);
@@ -147,6 +159,9 @@ void DFRobot_Sensor_SPI::writeReg(uint8_t reg, void* pBuf, size_t size)
 
 uint8_t DFRobot_Sensor_SPI::readReg(uint8_t reg, void* pBuf, size_t size)
 {
+  if(pBuf == NULL){
+	  DBG("pBuf ERROR!! : null pointer");
+  }
   uint8_t * _pBuf = (uint8_t *)pBuf;
   size_t count = 0;
   _pSpi->beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE0));

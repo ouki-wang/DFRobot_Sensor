@@ -14,6 +14,8 @@
  */
 #include <DFRobot_Sensor.h>
 DFRobot_Sensor_IIC sensor(&Wire, eLowPower);
+//DFRobot_Sensor_IIC sensor;//这样定义会使用默认参数，&Wire  eNomalPrecision+eNormalSpeed+eNormalPower
+
 void setup(void)
 {
   Serial.begin(115200);
@@ -27,9 +29,9 @@ void setup(void)
 void loop(void)
 {
   /*读取光线强度*/
-  uint16_t v = sensor.soundStrengthDB();
+  uint16_t soundStrength = sensor.soundStrengthDB();
   Serial.print("sound strength=");
-  Serial.print(v);
+  Serial.print(soundStrength);
   Serial.println(" dB");
   delay(1000);
 }

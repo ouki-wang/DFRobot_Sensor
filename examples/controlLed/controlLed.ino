@@ -11,7 +11,8 @@
  * @https://github.com/ouki-wang/DFRobot_Sensor
  */
 #include <DFRobot_Sensor.h>
-DFRobot_Sensor_IIC sensor(&Wire, eLowPower+eHighSpeed);
+DFRobot_Sensor_IIC sensor(&Wire, sensor.eLowPower+sensor.eHighSpeed);
+//DFRobot_Sensor_IIC sensor;//这样定义会使用默认参数，&Wire  eNomalPrecision+eNormalSpeed+eNormalPower
 
 void setup(void)
 {
@@ -26,14 +27,14 @@ void setup(void)
 void loop(void)
 {
   /*setLED函数用于点亮LED，可以直接指定颜色，如下参数都是可用的
-  COLOR_BLACK  COLOR_NAVY  COLOR_DGREEN  COLOR_DCYAN   COLOR_PURPLE
-  COLOR_MAROON COLOR_OLIVE COLOR_LGRAY   COLOR_DGRAY   COLOR_BLUE  
-  COLOR_GREEN  COLOR_CYAN  COLOR_RED     COLOR_MAGENTA COLOR_YELLOW      
-  COLOR_WHITE
+  COLOR_RGB565_BLACK  COLOR_RGB565_NAVY  COLOR_RGB565_DGREEN  COLOR_RGB565_DCYAN   COLOR_RGB565_PURPLE
+  COLOR_RGB565_MAROON COLOR_RGB565_OLIVE COLOR_RGB565_LGRAY   COLOR_RGB565_DGRAY   COLOR_RGB565_BLUE  
+  COLOR_RGB565_GREEN  COLOR_RGB565_CYAN  COLOR_RGB565_RED     COLOR_RGB565_MAGENTA COLOR_RGB565_YELLOW      
+  COLOR_RGB565_WHITE
   */
-  sensor.setLED(COLOR_PURPLE);
+  sensor.setLED(sensor.COLOR_RGB565_PURPLE);
   delay(1000);
-  sensor.setLED(COLOR_YELLOW);
+  sensor.setLED(sensor.COLOR_RGB565_YELLOW);
   delay(1000);
   
   /*setLED函数用于点亮LED，可以通过配置RGB分量，显示特定颜色
