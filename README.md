@@ -23,7 +23,7 @@
 
 ## Summary
 
-这里填写当前Arduino软件库完成了哪些功能
+这里填写当前Arduino软件库完成了基础功能，特色功能
 
 ## Installation
 
