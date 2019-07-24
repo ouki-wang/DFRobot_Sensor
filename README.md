@@ -92,7 +92,7 @@ micro:bit        |      √       |              |             |
 
 ## Credits
 
-Written by(ouki.wang@dfrobot.com), 2019. (Welcome to our [website](https://www.dfrobot.com/))
+Written by Alexander(ouki.wang@dfrobot.com), 2019. (Welcome to our [website](https://www.dfrobot.com/))
 
 
 
